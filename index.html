@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analysis: Smart World One DXP · The Plot</title>
+    <title>Diligence: Jhajjar Residential Township · The Plot</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
@@ -11,179 +11,148 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
-            --parchment: #FBF6ED; --parchment-deep: #F3EBDB; --parchment-dark: #E8DCC8;
-            --ink: #2A1A0A; --ink-muted: #4A3A28; --seal: #7A3B1E; --stamp: #A54B2A; --border: #C5A87A;
+            --parchment: #FBF6ED; --parchment-deep: #F3EBDB; --ink: #2A1A0A; 
+            --seal: #7A3B1E; --stamp: #A54B2A; --border: #C5A87A;
         }
-        body { background: var(--parchment); color: var(--ink-muted); font-family: 'IBM Plex Sans', sans-serif; }
-        .fraunces { font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144; }
-        .mono { font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; }
-        .hindi { font-family: 'Noto Sans Devanagari', sans-serif; }
+        body { background: var(--parchment); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; overflow-x: hidden; }
+        .fraunces { font-family: 'Fraunces', serif; }
+        .mono { font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.12em; }
         
-        /* The Plot Editorial Texture */
+        /* Editorial Grain & Textures */
         body::before {
-            content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 99; opacity: 0.18; mix-blend-mode: multiply;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 99; opacity: 0.15; mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
-
-        .doc-card { border: 1px solid var(--border); position: relative; background: var(--parchment); }
-        .doc-card::after { content: ""; position: absolute; inset: 3px; border: 0.5px solid var(--border); pointer-events: none; }
-        
-        .section-divider { border-top: 1px solid var(--border); border-bottom: 4px double var(--border); }
-        .stamp-text { color: var(--stamp); font-weight: 700; border-bottom: 1px dashed var(--stamp); }
-        
-        /* Accordion for FAQs */
-        .faq-trigger:checked ~ .faq-content { max-height: 500px; padding-bottom: 1rem; }
+        .doc-border { border: 1px solid var(--border); position: relative; padding: 2rem; }
+        .verdict-block { background: var(--ink); color: var(--parchment); padding: 2.5rem; border-left: 8px solid var(--stamp); }
     </style>
 </head>
 <body class="antialiased">
 
-    <nav class="sticky top-0 z-50 bg-[#FBF6ED]/95 backdrop-blur-sm border-b border-[#C5A87A] px-6 py-4 flex justify-between items-center">
+    <nav class="sticky top-0 z-50 bg-[#FBF6ED]/95 backdrop-blur-md border-b border-[#C5A87A] px-6 py-4 flex justify-between items-center">
         <div class="flex items-baseline gap-4">
-            <span class="fraunces text-2xl font-black text-[#2A1A0A]">The Plot.</span>
-            <span class="hindi text-sm font-bold text-[#7A3B1E] hidden sm:inline">द प्लॉट</span>
+            <span class="fraunces text-2xl font-black">The Plot.</span>
+            <span class="mono text-[9px] font-bold text-[#7A3B1E]">Jhajjar Report · 2026</span>
         </div>
-        <div class="hidden md:flex gap-6 mono text-[10px] font-bold text-[#2A1A0A]">
-            <a href="#analysis" class="hover:text-[#A54B2A]">Diligence</a>
-            <a href="#location" class="hover:text-[#A54B2A]">The Sector</a>
-            <a href="#amenities" class="hover:text-[#A54B2A]">Asset Specs</a>
-            <a href="#inquiry" class="bg-[#2A1A0A] text-[#FBF6ED] px-4 py-1">Request Audit</a>
-        </div>
+        <a href="#inquiry" class="bg-[#2A1A0A] text-[#FBF6ED] px-5 py-2 mono text-[10px] font-bold">Get Land Audit</a>
     </nav>
 
-    <header class="py-16 px-6 text-center max-w-5xl mx-auto">
-        <div class="mono text-[#A54B2A] text-xs font-bold mb-4 tracking-[0.2em]">Diligence Note · 042</div>
-        <h1 class="fraunces text-4xl md:text-7xl font-black text-[#2A1A0A] leading-[1.1] mb-6">
-            Smart World One DXP:<br><span class="italic font-light text-[#7A3B1E]">Premium not earned?</span>
+    <header class="py-20 px-6 max-w-6xl mx-auto text-center">
+        <div class="mono text-[#A54B2A] text-xs font-bold mb-6 italic">Strategic Land Acquisition Analysis</div>
+        <h1 class="fraunces text-5xl md:text-8xl font-black leading-[0.9] mb-8">
+            The Jhajjar <br><span class="text-[#7A3B1E] italic font-light tracking-tight text-4xl md:text-7xl">Alpha Opportunity</span>
         </h1>
-        <p class="max-w-2xl mx-auto text-lg text-[#4A3A28] leading-relaxed mb-8">
-            An independent deep-dive into Dwarka Expressway’s Sector 113 luxury cluster. 
-            Verified against RERA filings and site inspections.
+        <p class="max-w-3xl mx-auto text-xl text-[#4A3A28] mb-12 leading-relaxed">
+            While Reliance MET City anchors the region at ₹1.1L/sq.yd, our township offers a clean-entry at <span class="font-bold border-b-2 border-[#A54B2A]">₹35,000</span>. This is the industrial-arbitrage play of the decade.
         </p>
-        <div class="flex flex-wrap justify-center gap-4 mono text-[10px] font-bold">
-            <span class="border border-[#C5A87A] px-3 py-1">₹ 2.5 CR — 5 CR</span>
-            <span class="border border-[#C5A87A] px-3 py-1">2.5, 3.5 & 4.5 BHK</span>
-            <span class="bg-[#7A3B1E] text-white px-3 py-1 tracking-widest uppercase">Under Construction</span>
+        <div class="grid md:grid-cols-3 gap-8 text-center border-y border-[#C5A87A] py-8">
+            <div><span class="mono text-[10px] block mb-2">Entry Yield</span><span class="fraunces text-3xl font-bold">₹35k/sq.yd</span></div>
+            <div><span class="mono text-[10px] block mb-2">Adjacent Ecosystem</span><span class="fraunces text-3xl font-bold">8,250 Acres</span></div>
+            <div><span class="mono text-[10px] block mb-2">Legal Status</span><span class="fraunces text-3xl font-bold">100% White</span></div>
         </div>
     </header>
 
-    <section id="analysis" class="py-20 border-t border-b border-[#C5A87A] bg-[#F3EBDB]/50">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12">
-            <div class="space-y-8">
-                <div class="mono text-[#7A3B1E] text-xs font-bold">§ 01 / The Thesis</div>
-                <h2 class="fraunces text-4xl font-bold text-[#2A1A0A]">The Investment Narrative.</h2>
-                <div class="prose prose-slate text-[#4A3A28] leading-relaxed space-y-4">
-                    <p>Sector 113 is not just land; it's the gateway to the <span class="stamp-text">India International Convention Centre (IICC)</span>. Smart World One DXP sits on a zero-kilometer point from Delhi.</p>
-                    <p>Our analysis suggests a supply-demand mismatch in favor of the developer, driven by the shift from Gurgaon's central core to its northern periphery.</p>
+    <section class="py-24 bg-[#F3EBDB]/40 border-b border-[#C5A87A]">
+        <div class="container mx-auto px-6">
+            <h2 class="fraunces text-4xl font-black mb-16 text-center italic">The "Arbitrage" Gap</h2>
+            <div class="grid md:grid-cols-2 gap-px bg-[#C5A87A] border border-[#C5A87A]">
+                <div class="bg-[#FBF6ED] p-12">
+                    <span class="mono text-[10px] text-[#7A3B1E] mb-4 block">Benchmark Project</span>
+                    <h3 class="fraunces text-3xl font-bold mb-6">Reliance MET City</h3>
+                    <ul class="space-y-4 text-sm opacity-80">
+                        <li>◆ Price: ₹90k — ₹1.1L per sq.yd</li>
+                        <li>◆ Status: Mature Industrial Hub (Panasonic, Denso)</li>
+                        <li>◆ Liquidity: High (Walk-to-work demand)</li>
+                    </ul>
+                </div>
+                <div class="bg-[#FBF6ED] p-12 border-l border-[#C5A87A]">
+                    <span class="mono text-[10px] text-[#A54B2A] mb-4 block">Selection Priority</span>
+                    <h3 class="fraunces text-3xl font-bold mb-6">Jhajjar Township</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li>◆ <span class="font-bold">Price: ₹35,000 per sq.yd</span></li>
+                        <li>◆ Connectivity: Direct KMP & DFC Access</li>
+                        <li>◆ Upside: 3x potential as MET reaches saturation</li>
+                    </ul>
                 </div>
             </div>
-            <div class="doc-card aspect-video bg-[#E8DCC8] flex flex-col items-center justify-center grayscale contrast-125 overflow-hidden">
-                <div class="p-8 text-center">
-                    <div class="mono text-[9px] text-[#7A3B1E] mb-2 uppercase">Fig A: Site Proximity Map</div>
-                    <div class="fraunces italic text-xl">The Dwarka Nexus</div>
-                </div>
+            <div class="verdict-block mt-12 max-w-4xl mx-auto">
+                <span class="mono text-[10px] tracking-widest text-[#A54B2A]">The Analyst Verdict</span>
+                <p class="fraunces text-2xl mt-4 leading-relaxed italic font-medium">
+                    "Investing in MET City today is buying a finished product. Investing in our Jhajjar Township is buying the future MET City at 1/3rd of the cost. The infrastructure spillover is inevitable."
+                </p>
             </div>
         </div>
     </section>
 
-    <section id="amenities" class="py-20 container mx-auto px-6">
-        <div class="text-center mb-16">
-            <div class="mono text-[#A54B2A] text-xs mb-2">Technical Specification</div>
-            <h2 class="fraunces text-4xl font-black text-[#2A1A0A]">The Asset Attributes.</h2>
+    <section class="py-24 container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div class="max-w-xl">
+                <span class="mono text-[10px] text-[#7A3B1E]">Exhibit A / Site Progress</span>
+                <h2 class="fraunces text-4xl font-black mt-2">Ground Truth.</h2>
+                <p class="mt-4 opacity-70">No mockups. No renders. This is the actual state of development as of May 2026.</p>
+            </div>
+            <a href="#inquiry" class="mono text-xs font-bold border-b border-[#2A1A0A] pb-1">Request Drone Footage</a>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#C5A87A] border border-[#C5A87A]">
-            <div class="bg-[#FBF6ED] p-8 text-center">
-                <div class="mono text-[9px] text-[#7A3B1E] mb-4">Wellness</div>
-                <div class="fraunces text-lg font-bold text-[#2A1A0A]">1.1L SQ.FT.</div>
-                <div class="text-[10px] uppercase font-bold tracking-tighter mt-1">Clubhouse</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="doc-border aspect-square bg-[#E8DCC8] grayscale contrast-125 group overflow-hidden">
+                <img src="your-image-url-1.jpg" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition duration-700">
+                <div class="absolute bottom-4 left-4 bg-white/90 px-3 py-1 mono text-[9px]">Fig 1.1 / Plot Demarcation</div>
             </div>
-            <div class="bg-[#FBF6ED] p-8 text-center">
-                <div class="mono text-[9px] text-[#7A3B1E] mb-4">Sustainability</div>
-                <div class="fraunces text-lg font-bold text-[#2A1A0A]">75,000 SQ.FT.</div>
-                <div class="text-[10px] uppercase font-bold tracking-tighter mt-1">Green Zone</div>
+            <div class="doc-border aspect-square bg-[#E8DCC8] grayscale contrast-125 group overflow-hidden">
+                <img src="your-image-url-2.jpg" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition duration-700">
+                <div class="absolute bottom-4 left-4 bg-white/90 px-3 py-1 mono text-[9px]">Fig 1.2 / Internal Roadways</div>
             </div>
-            <div class="bg-[#FBF6ED] p-8 text-center">
-                <div class="mono text-[9px] text-[#7A3B1E] mb-4">Scale</div>
-                <div class="fraunces text-lg font-bold text-[#2A1A0A]">16 ACRES</div>
-                <div class="text-[10px] uppercase font-bold tracking-tighter mt-1">Project Area</div>
-            </div>
-            <div class="bg-[#FBF6ED] p-8 text-center">
-                <div class="mono text-[9px] text-[#7A3B1E] mb-4">Sports</div>
-                <div class="fraunces text-lg font-bold text-[#2A1A0A]">25+</div>
-                <div class="text-[10px] uppercase font-bold tracking-tighter mt-1">Activity Hubs</div>
+            <div class="doc-border aspect-square bg-[#E8DCC8] grayscale contrast-125 group overflow-hidden">
+                <img src="your-image-url-3.jpg" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition duration-700">
+                <div class="absolute bottom-4 left-4 bg-white/90 px-3 py-1 mono text-[9px]">Fig 1.3 / Proximity to MET</div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-[#F3EBDB]/30 border-t border-[#C5A87A]">
-        <div class="max-w-3xl mx-auto px-6">
-            <h3 class="fraunces text-3xl font-black text-[#2A1A0A] mb-10 text-center">Analyst Q&A</h3>
-            <div class="space-y-4">
-                <div class="border-b border-[#C5A87A] pb-4">
-                    <label class="flex justify-between items-center cursor-pointer group">
-                        <span class="mono text-xs font-bold text-[#2A1A0A]">What is the RERA status of the project?</span>
-                        <input type="checkbox" class="hidden faq-trigger">
-                        <span class="text-[#7A3B1E] group-hover:translate-y-1 transition-transform">↓</span>
-                        <div class="faq-content max-hidden overflow-hidden max-h-0 transition-all duration-300 pt-0">
-                            <p class="text-sm pt-4 leading-relaxed">The project is RERA registered under RC/REP/HARERA/GGM/680/412/2023/24. Possession is anticipated by Q4 2027.</p>
-                        </div>
-                    </label>
-                </div>
-                <div class="border-b border-[#C5A87A] pb-4">
-                    <label class="flex justify-between items-center cursor-pointer group">
-                        <span class="mono text-xs font-bold text-[#2A1A0A]">How does pricing compare to peers?</span>
-                        <input type="checkbox" class="hidden faq-trigger">
-                        <span class="text-[#7A3B1E] group-hover:translate-y-1 transition-transform">↓</span>
-                        <div class="faq-content overflow-hidden max-h-0 transition-all duration-300">
-                            <p class="text-sm pt-4 leading-relaxed">While base prices are slightly higher than M3M Capital, the smart-home automation and club-access included in One DXP narrows the gap on a 'perceived value' basis.</p>
-                        </div>
-                    </label>
-                </div>
+    <section class="py-24 bg-[#2A1A0A] text-[#FBF6ED]">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <span class="mono text-[10px] text-[#C5A87A] mb-4 block">Institutional Standards</span>
+            <h2 class="fraunces text-4xl font-black mb-8">100% White. 100% On-Paper.</h2>
+            <p class="text-lg opacity-80 leading-relaxed mb-12">
+                We eliminate the "village land" risk. Every square yard is HRERA certified, fully approved by the Haryana Government, and backed by a 100% transparent payment ledger. 
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="border border-white/20 p-6"><span class="mono text-[10px]">HRERA</span><br><span class="fraunces font-bold">Approved</span></div>
+                <div class="border border-white/20 p-6"><span class="mono text-[10px]">Title</span><br><span class="fraunces font-bold">Clear</span></div>
+                <div class="border border-white/20 p-6"><span class="mono text-[10px]">Registry</span><br><span class="fraunces font-bold">Immediate</span></div>
+                <div class="border border-white/20 p-6"><span class="mono text-[10px]">Payment</span><br><span class="fraunces font-bold">White Only</span></div>
             </div>
         </div>
     </section>
 
-    <section id="inquiry" class="py-24 px-6 bg-[#2A1A0A]">
-        <div class="max-w-xl mx-auto doc-card p-12 bg-[#FBF6ED]">
-            <div class="text-center mb-10">
-                <div class="mono text-[#A54B2A] text-[10px] font-bold mb-2">Confidential Application</div>
-                <h2 class="fraunces text-3xl font-black text-[#2A1A0A]">Request the Pricing Index.</h2>
-                <p class="text-sm text-[#7A3B1E] mt-2">Verified leads receive the full Q2 2026 Price List.</p>
+    <section id="inquiry" class="py-32 bg-[#FBF6ED]">
+        <div class="max-w-xl mx-auto doc-border bg-[#F3EBDB]/30 p-12">
+            <div class="text-center mb-12">
+                <h2 class="fraunces text-4xl font-black italic">Claim Your Plot</h2>
+                <p class="mono text-[10px] mt-2 text-[#7A3B1E]">Batch 01 Inventory Closing Soon</p>
             </div>
-            <form id="lead-form" class="space-y-6">
-                <div class="border-b border-[#C5A87A] pb-1">
-                    <label class="mono text-[9px] font-bold text-[#7A3B1E]">Full Name</label>
-                    <input type="text" name="full_name" required class="w-full bg-transparent outline-none py-2 text-[#2A1A0A] font-medium text-lg">
+            <form id="lead-form" class="space-y-8">
+                <div class="border-b border-[#C5A87A] pb-2">
+                    <label class="mono text-[9px] font-bold text-[#7A3B1E]">Full Legal Name</label>
+                    <input type="text" name="full_name" required class="w-full bg-transparent outline-none py-2 text-xl fraunces italic">
                 </div>
-                <div class="border-b border-[#C5A87A] pb-1">
-                    <label class="mono text-[9px] font-bold text-[#7A3B1E]">Email Address</label>
-                    <input type="email" name="email" required class="w-full bg-transparent outline-none py-2 text-[#2A1A0A] font-medium text-lg">
+                <div class="border-b border-[#C5A87A] pb-2">
+                    <label class="mono text-[9px] font-bold text-[#7A3B1E]">Contact Number</label>
+                    <input type="tel" name="phone" required class="w-full bg-transparent outline-none py-2 text-xl fraunces">
                 </div>
-                <div class="border-b border-[#C5A87A] pb-1">
-                    <label class="mono text-[9px] font-bold text-[#7A3B1E]">Mobile Contact</label>
-                    <input type="tel" name="phone" required class="w-full bg-transparent outline-none py-2 text-[#2A1A0A] font-medium text-lg">
-                </div>
-                <button type="submit" id="submit-btn" class="w-full bg-[#2A1A0A] text-[#FBF6ED] py-6 mono font-bold tracking-[0.2em] hover:bg-[#A54B2A] transition-all">
-                    Register Record
+                <button type="submit" id="submit-btn" class="w-full bg-[#2A1A0A] text-[#FBF6ED] py-6 mono font-bold tracking-widest hover:bg-[#A54B2A] transition-all">
+                    Request Full Land Report
                 </button>
             </form>
             <div id="success-msg" class="hidden text-center py-12">
-                <div class="mono text-[#A54B2A] text-3xl">◆ FILED ◆</div>
-                <p class="text-[#4A3A28] mt-4 font-medium">An analyst will contact you within one business day.</p>
+                <h3 class="fraunces text-2xl font-bold">Audit Request Confirmed.</h3>
+                <p class="text-sm mt-4 opacity-70">A land specialist will contact you with the RERA documentation and price sheet.</p>
             </div>
         </div>
     </section>
 
-    <footer class="py-16 border-t border-[#C5A87A] text-center">
-        <div class="flex items-center justify-center gap-4 mb-4">
-            <span class="fraunces font-black text-xl text-[#2A1A0A]">The Plot.</span>
-            <div class="w-px h-6 bg-[#C5A87A]"></div>
-            <span class="hindi text-sm text-[#7A3B1E]">स्वतंत्र विश्लेषण</span>
-        </div>
-        <p class="mono text-[9px] text-[#7A3B1E] max-w-lg mx-auto leading-relaxed">
-            REG. Nᴼ PLOT/DXP/2026 · DOCUMENT 042-V1<br>
-            PROPERTY RESEARCH BY THE PLOT · INDEPENDENT ANALYTICAL VERIFIED.<br>
-            © 2026 SCALIFAI DIGITAL LABS.
-        </p>
+    <footer class="py-12 border-t border-[#C5A87A] text-center mono text-[9px] text-[#7A3B1E]">
+        REG. Nᴼ PLOT/JHA/2026 · THE PLOT INDEPENDENT ANALYSIS · © 2026
     </footer>
 
     <script src="script.js"></script>
