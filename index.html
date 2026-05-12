@@ -3,59 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Property | Gurugram</title>
+    <title>The Plot — Smart World One DXP Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        html { scroll-behavior: smooth; }
+        :root {
+            --parchment: #FBF6ED;
+            --ink: #2A1A0A;
+            --ink-muted: #4A3A28;
+            --seal: #7A3B1E;
+            --stamp: #A54B2A;
+            --border: #C5A87A;
+        }
+        body { 
+            background-color: var(--parchment); 
+            color: var(--ink-muted);
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+        /* Editorial Grain Overlay */
+        body::before {
+            content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: 0.2; mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/feColorMatrix values='0 0 0 0 0.15 0 0 0 0 0.1 0 0 0 0 0.05 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        .fraunces { font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144; }
+        .mono { font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.1em; }
+        .hindi { font-family: 'Noto Sans Devanagari', sans-serif; }
+        .doc-border { border: 1px solid var(--border); position: relative; }
+        .doc-border::after { content: ""; position: absolute; inset: 4px; border: 0.5px solid var(--border); pointer-events: none; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans">
+<body class="antialiased">
 
-    <!-- Hero Section -->
-    <header class="relative h-screen flex items-center justify-center bg-slate-900 text-white overflow-hidden">
-        <div class="absolute inset-0 opacity-50 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80');"></div>
-        <div class="relative z-10 text-center px-4">
-            <h1 class="text-5xl md:text-7xl font-light tracking-tight mb-4">The Modern Estate</h1>
-            <p class="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">Luxury living redefined in the heart of Gurgaon's growth corridor.</p>
-            <a href="#inquiry" class="bg-white text-slate-900 px-8 py-4 rounded-md font-bold uppercase tracking-widest hover:bg-slate-200 transition">Express Interest</a>
+    <nav class="sticky top-0 z-50 bg-[#FBF6ED]/90 backdrop-blur-md border-b border-[#C5A87A] px-6 py-4 flex justify-between items-center">
+        <div class="flex items-baseline gap-3">
+            <span class="fraunces text-2xl font-black text-[#2A1A0A]">The Plot.</span>
+            <span class="hindi text-sm font-bold text-[#7A3B1E]">द प्लॉट</span>
         </div>
+        <div class="hidden md:flex gap-8 mono text-[10px] font-bold">
+            <a href="#analysis" class="hover:text-[#A54B2A]">The Analysis</a>
+            <a href="#location" class="hover:text-[#A54B2A]">Locality Deep-Dive</a>
+            <a href="#amenities" class="hover:text-[#A54B2A]">Amenities</a>
+            <a href="#inquiry" class="text-[#7A3B1E] border-b border-[#7A3B1E]">Request Access</a>
+        </div>
+    </nav>
+
+    <header class="py-20 px-6 text-center border-b border-[#C5A87A]">
+        <div class="mono text-[#A54B2A] text-xs font-bold mb-4">Property Report · Sector 113</div>
+        <h1 class="fraunces text-5xl md:text-7xl font-black text-[#2A1A0A] leading-tight mb-6">
+            Smart World One DXP:<br><span class="italic font-light text-[#7A3B1E]">Premium not earned?</span>
+        </h1>
+        <p class="max-w-2xl mx-auto text-lg text-[#4A3A28] mb-10">
+            An independent deep-dive into Dwarka Expressway’s most talked-about luxury cluster.
+        </p>
+        <a href="#inquiry" class="doc-border inline-block px-10 py-4 bg-[#2A1A0A] text-[#FBF6ED] mono font-bold text-xs hover:bg-[#7A3B1E] transition-colors">
+            Download the Full Audit
+        </a>
     </header>
 
-    <!-- Lead Form Section -->
-    <section id="inquiry" class="py-24 px-4">
-        <div class="max-w-xl mx-auto bg-white p-10 rounded-2xl shadow-xl border border-slate-100">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold mb-2">Request a Callback</h2>
-                <p class="text-slate-500">Submit your details to receive the floor plans and pricing.</p>
+    <section id="analysis" class="py-20 container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center border-b border-[#C5A87A]">
+        <div>
+            <div class="mono text-[#A54B2A] text-[10px] mb-2">Section 01 · The Verdict</div>
+            <h2 class="fraunces text-4xl font-black text-[#2A1A0A] mb-6">Investment Thesis</h2>
+            <div class="space-y-4 text-[#4A3A28] leading-relaxed">
+                <p>We've walked the site. Sector 113 is transitioning from a speculative land-bank to a high-density luxury corridor.</p>
+                <ul class="list-none space-y-3 mono text-[11px] font-semibold text-[#7A3B1E]">
+                    <li>◆ Strategic proximity to IGI Airport (15 mins)</li>
+                    <li>◆ Direct access to the Dwarka Expressway</li>
+                    <li>◆ Significant appreciation potential vs. Cyber City</li>
+                </ul>
             </div>
-            
-            <form id="lead-form" class="space-y-5">
-                <div>
-                    <label class="block text-sm font-semibold mb-2">Full Name</label>
-                    <input type="text" name="full_name" required class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-2">Email Address</label>
-                    <input type="email" name="email" required class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold mb-2">Phone Number</label>
-                    <input type="tel" name="phone" required class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition">
-                </div>
-                <button type="submit" id="submit-btn" class="w-full bg-slate-900 text-white py-4 rounded-lg font-bold text-lg hover:bg-black transition-all">Submit Details</button>
-            </form>
+        </div>
+        <div class="doc-border h-96 bg-[#E8DCC8] grayscale contrast-125 flex items-center justify-center">
+            <span class="mono text-[#7A3B1E]">Site Image Placeholder</span>
+        </div>
+    </section>
 
+    <section id="inquiry" class="py-24 bg-[#F3EBDB]">
+        <div class="max-w-xl mx-auto doc-border p-10 bg-[#FBF6ED]">
+            <div class="text-center mb-10">
+                <div class="mono text-[#7A3B1E] text-xs font-bold mb-2">Confidential Inquiry</div>
+                <h2 class="fraunces text-3xl font-black text-[#2A1A0A]">Request Callback</h2>
+            </div>
+            <form id="lead-form" class="space-y-6">
+                <div class="border-b border-[#C5A87A] pb-2">
+                    <label class="mono text-[9px] font-bold text-[#7A3B1E]">Full Name</label>
+                    <input type="text" name="full_name" required class="w-full bg-transparent outline-none py-2 text-[#2A1A0A] font-medium">
+                </div>
+                <div class="border-b border-[#C5A87A] pb-2">
+                    <label class="mono text-[9px] font-bold text-[#7A3B1E]">Email Address</label>
+                    <input type="email" name="email" required class="w-full bg-transparent outline-none py-2 text-[#2A1A0A] font-medium">
+                </div>
+                <div class="border-b border-[#C5A87A] pb-2">
+                    <label class="mono text-[9px] font-bold text-[#7A3B1E]">Phone Number</label>
+                    <input type="tel" name="phone" required class="w-full bg-transparent outline-none py-2 text-[#2A1A0A] font-medium">
+                </div>
+                <button type="submit" id="submit-btn" class="w-full bg-[#2A1A0A] text-[#FBF6ED] py-5 mono font-bold tracking-widest hover:bg-[#A54B2A] transition-all">
+                    Register Interest
+                </button>
+            </form>
             <div id="success-msg" class="hidden text-center py-10">
-                <div class="text-blue-600 text-5xl mb-4">✓</div>
-                <h3 class="text-2xl font-bold">Thank You!</h3>
-                <p class="text-slate-500 mt-2">Our team will reach out to you within 24 hours.</p>
+                <span class="mono text-2xl text-[#A54B2A]">✓ Filed</span>
+                <p class="mt-4 text-[#4A3A28]">Your inquiry has been recorded in our Q2 leads register.</p>
             </div>
         </div>
     </section>
 
-    <footer class="py-10 text-center text-slate-400 text-sm border-t">
-        © 2026 Real Estate Developer | RERA Registered
+    <footer class="py-12 border-t border-[#C5A87A] text-center mono text-[9px] text-[#7A3B1E]">
+        REG. Nᴼ PLOT/DXP/2026 · DOCUMENTED BY THE PLOT · © 2026
     </footer>
 
     <script src="script.js"></script>
